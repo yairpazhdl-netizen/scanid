@@ -35,6 +35,7 @@ button:disabled{opacity:.55;cursor:wait}
 .item b{display:block}.item small{color:var(--mute)}
 .empty{color:var(--mute);padding:8px 0}
 .hidden{display:none!important}
+#raw{white-space:pre-wrap;word-break:break-word;font-size:.75rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;max-height:240px;overflow:auto}
 #preview{width:100%;border-radius:10px;margin-top:12px}
 </style>
 </head>
@@ -67,6 +68,7 @@ button:disabled{opacity:.55;cursor:wait}
     <div class="top"><h1>Revisa los datos</h1><button id="btnBack" class="link">Cancelar</button></div>
     <p class="sub">Corrige lo que no coincida con la credencial.</p>
     <img id="preview" alt="Foto de la credencial">
+    <details style="margin-top:12px"><summary>Ver texto leído por el OCR</summary><pre id="raw"></pre></details>
     <div class="card" style="margin-top:12px">
       <div class="grid2">
         <div><label for="f_nombre">Nombre(s)</label><input id="f_nombre"></div>
