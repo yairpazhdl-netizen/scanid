@@ -68,7 +68,7 @@ button:disabled{opacity:.55;cursor:wait}
     <div class="top"><h1>Revisa los datos</h1><button id="btnBack" class="link">Cancelar</button></div>
     <p class="sub">Corrige lo que no coincida con la credencial.</p>
     <img id="preview" alt="Foto de la credencial">
-    <details style="margin-top:12px"><summary>Ver texto leído por el OCR</summary><pre id="raw"></pre></details>
+    <details style="margin-top:12px"><summary>Ver respuesta de la IA</summary><pre id="raw"></pre></details>
     <div class="card" style="margin-top:12px">
       <div class="grid2">
         <div><label for="f_nombre">Nombre(s)</label><input id="f_nombre"></div>
@@ -95,7 +95,6 @@ button:disabled{opacity:.55;cursor:wait}
 
   <p id="msg" role="status"></p>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js" defer></script>
 <script type="module" src="app.js"></script>
 <script>if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));</script>
 </body>

@@ -1,7 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { scan } from "./ocr.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+import { scan } from "./ia.js";
 import { firebaseConfig } from "./firebase-config.js";
 
 const app = initializeApp(firebaseConfig);
@@ -48,9 +48,9 @@ $("file").onchange = async (e) => {
   if (!file) return;
   busy($("btnScan"), true, "Leyendo credencial…"); say("");
   try {
-    const { data, raw } = await scan(file, (i, n, p) => { $("btnScan").textContent = `Leyendo credencial (${i}/${n})… ${p}%`; });
+    const { data, raw } = await scan(file);
     fillForm(data);
-    $("raw").textContent = raw.trim() || "(el OCR no devolvió texto)";
+    $("raw").textContent = raw.trim() || "(la IA no devolvió texto)";
     $("preview").src = URL.createObjectURL(file);
     show("review");
     const found = FIELDS.filter((f) => data[f]).length;

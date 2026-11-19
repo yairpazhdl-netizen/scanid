@@ -1,9 +1,18 @@
 // Pega aquí la configuración de tu app web (Firebase Console > Configuración del proyecto > Tus apps).
 export const firebaseConfig = {
-  apiKey: "AIzaSyBa-9IdWY_h1KFwdvhL-07kTOKzh2T2aa8",
-  authDomain: "scanid-96604.firebaseapp.com",
-  projectId: "scanid-96604",
-  storageBucket: "scanid-96604.firebasestorage.app",
-  messagingSenderId: "82724380847",
-  appId: "1:82724380847:web:12e81146db60957b0c345a"
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_PROYECTO.firebaseapp.com",
+  projectId: "TU_PROYECTO",
+  storageBucket: "TU_PROYECTO.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:0000000000000000"
+};
+
+// Configuración de la IA (Firebase AI Logic con la Gemini Developer API).
+export const iaConfig = {
+  // Los nombres de modelo cambian seguido: si aparece "modelo no disponible", usa el Flash estable
+  // que indique https://firebase.google.com/docs/ai-logic/models
+  model: "gemini-3.8-flash",
+  // Clave de sitio reCAPTCHA v3 que registraste en App Check (ver README).
+  recaptchaSiteKey: ""
 };

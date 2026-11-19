@@ -1,26 +1,23 @@
-# Escáner de INE (PWA + Firebase Spark)
+# Escáner de INE (PWA + Firebase Spark + Gemini)
 
-Foto de la INE → OCR en el celular (Tesseract.js) → revisas y corriges → se guarda en Firestore.
-Funciona con el plan **Spark** (gratis): no usa Cloud Functions ni APIs de pago.
-La foto NO sale del celular ni se guarda; solo se guardan los campos de texto.
+Foto de la INE → Gemini (Firebase AI Logic) lee los datos → revisas y corriges → se guarda en Firestore.
+Funciona con el plan **Spark** (gratis, con los límites del nivel gratuito). La foto no se guarda; solo los campos de texto.
 
-## Puesta en marcha
-1. Crea un proyecto en https://console.firebase.google.com (plan Spark).
-2. Activa **Authentication** (Correo/contraseña) y **Firestore Database**.
-3. Configuración del proyecto > Tus apps > Web: copia la config y pégala en `public/firebase-config.js`.
-4. En una terminal, dentro de esta carpeta:
-   ```
-   npm i -g firebase-tools
-   firebase login
-   firebase use --add
-   firebase deploy --only hosting,firestore
-   ```
-5. Abre la URL en el celular y usa "Agregar a pantalla de inicio".
+## Configuración en Firebase (una vez)
+1. Crea el proyecto (plan Spark). Registra una app Web y pega su config en `public/firebase-config.js`.
+2. **Authentication**: activa Correo/contraseña. **Firestore**: crea la base en modo producción y publica `firestore.rules` en la pestaña Reglas.
+3. **AI Logic**: consola > AI Services > AI Logic > Comenzar > elige **Gemini Developer API** y completa el asistente.
+4. **App Check**: el asistente de AI Logic lo exige. Consola > App Check > Apps > registra tu app web con **reCAPTCHA v3**:
+   - Crea una clave en https://www.google.com/recaptcha/admin (tipo v3) con tu dominio (`TU_USUARIO.github.io`).
+   - Pega la clave secreta en App Check y la **clave de sitio** en `iaConfig.recaptchaSiteKey` de `public/firebase-config.js`.
+5. **Authentication > Configuración > Dominios autorizados**: agrega `TU_USUARIO.github.io`.
+
+## Publicar con GitHub Pages
+Sube el proyecto a GitHub y activa Pages desde la carpeta `/public`. Las reglas de Firestore no se suben con Git (pégalas en la consola o usa `firebase deploy --only firestore`).
 
 ## Notas
-- La primera lectura descarga el motor de OCR y el idioma español (varios MB); después queda en caché.
-- Para mejores resultados: credencial plana, buena luz, sin reflejos, encuadrada y de frente.
-- Siempre revisa los datos antes de guardar: el OCR puede confundir letras y números.
-- La CURP se valida por formato y de ella se derivan fecha de nacimiento y sexo.
+- Modelo: `iaConfig.model` (por defecto `gemini-3.8-flash`). Los modelos se renuevan seguido; si da error de modelo no disponible, usa el Flash estable que indique la página de modelos de Firebase AI Logic.
+- Si aparece "límite gratuito", espera un minuto: el nivel gratuito tiene tope de solicitudes.
+- Revisa siempre los datos antes de guardar. La CURP se valida por formato y de ella salen fecha de nacimiento y sexo.
+- La INE es dato personal sensible: pide consentimiento, limita quién tiene cuenta y revisa los términos de datos del nivel gratuito de Gemini.
 - Cada usuario solo ve sus registros (`firestore.rules`).
-- La INE es dato personal sensible: pide consentimiento y limita quién tiene cuenta.
